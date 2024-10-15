@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var log: Bool = false;
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if log {
+            ReportIssueView()
+        } else {
+            LoginView(logged: $log)
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(log: false)
 }
