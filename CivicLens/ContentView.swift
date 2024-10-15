@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var log: Bool = false;
     var body: some View {
         if log {
-            ReportIssueView()
+            ReportProblemView()
         } else {
             LoginView(logged: $log)
         }

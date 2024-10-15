@@ -31,12 +31,9 @@ struct ReportProblemView: View {
                     
                     ReportOptionRow(imageName: "leaf.fill", title: "Urban biodiversity analysis", description: "Report wildlife sightings")
                 }
-                
                 Spacer()
                 
-                Button(action: {
-                    // Acción al presionar el botón "Next"
-                }) {
+                NavigationLink(destination: ReportIssueView()){
                     Text("Next")
                         .frame(maxWidth: .infinity)
                         .padding()

@@ -11,6 +11,7 @@ struct ReportIssueView: View {
     @State private var description: String = ""
     @State private var isImagePickerPresented = false
     @State private var selectedImage: UIImage? = nil
+    @State private var imagePickerSourceType: UIImagePickerController.SourceType = .photoLibrary
 
     var body: some View {
         NavigationView {
@@ -25,6 +26,7 @@ struct ReportIssueView: View {
 
                     // Botón para elegir una foto de la galería
                     Button(action: {
+                        imagePickerSourceType = .photoLibrary
                         isImagePickerPresented = true
                     }) {
                         Image(systemName: "photo")
@@ -36,8 +38,12 @@ struct ReportIssueView: View {
 
                     // Botón para tomar una foto con la cámara
                     Button(action: {
-                        // Acción para abrir la cámara
-                        isImagePickerPresented = true
+                        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                            imagePickerSourceType = .camera
+                            isImagePickerPresented = true
+                        } else {
+                            print("Camera not available on this device.")
+                        }
                     }) {
                         Image(systemName: "camera")
                             .font(.system(size: 40))
@@ -91,20 +97,20 @@ struct ReportIssueView: View {
             }
             .padding()
             .sheet(isPresented: $isImagePickerPresented) {
-                ImagePicker(selectedImage: $selectedImage)
+                ImagePicker(selectedImage: $selectedImage, sourceType: imagePickerSourceType)
             }
         }
     }
 }
 
-// Estructura para el ImagePicker
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
+    var sourceType: UIImagePickerController.SourceType // Añadido parámetro para sourceType
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        picker.sourceType = .photoLibrary // Puedes cambiar a .camera si prefieres usar la cámara
+        picker.sourceType = sourceType // Usamos el tipo de fuente dependiendo del valor pasado
         return picker
     }
     
@@ -129,7 +135,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
-
 struct ReportIssueView_Previews: PreviewProvider {
     static var previews: some View {
         ReportIssueView()
