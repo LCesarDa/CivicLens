@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Auth0
 
 struct LoginView: View {
     @State private var username: String = ""
@@ -90,7 +91,16 @@ struct LoginView: View {
             // Login and Register buttons
             VStack(spacing: 10) {
                 Button(action: {
-                    // Action for login
+                    Auth0
+                        .webAuth()
+                        .start { result in
+                            switch result {
+                            case .success(let credentials):
+                                print("Obtained credentials: \(credentials)")
+                            case .failure(let error):
+                                print("Failed with: \(error)")
+                            }
+                        }
                 }) {
                     Text("Login")
                         .font(.headline)
