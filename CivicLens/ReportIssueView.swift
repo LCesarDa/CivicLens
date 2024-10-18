@@ -38,12 +38,8 @@ struct ReportIssueView: View {
 
                     // Botón para tomar una foto con la cámara
                     Button(action: {
-                        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                            imagePickerSourceType = .camera
-                            isImagePickerPresented = true
-                        } else {
-                            print("Camera not available on this device.")
-                        }
+                        imagePickerSourceType = .camera
+                        isImagePickerPresented = true
                     }) {
                         Image(systemName: "camera")
                             .font(.system(size: 40))
@@ -83,9 +79,7 @@ struct ReportIssueView: View {
                 Spacer()
 
                 // Botón para enviar el reporte
-                Button(action: {
-                    // Acción al enviar el reporte
-                }) {
+                NavigationLink(destination: ProcessView(image: selectedImage)){
                     Text("Submit Report")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -105,7 +99,7 @@ struct ReportIssueView: View {
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
-    var sourceType: UIImagePickerController.SourceType // Añadido parámetro para sourceType
+    @State var sourceType: UIImagePickerController.SourceType // Añadido parámetro para sourceType
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
