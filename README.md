@@ -25,10 +25,6 @@ To get started with CivicLens, follow these steps:
     ```sh
     open CivicLens.xcodeproj
     ```
-4. Install dependencies using CocoaPods (if any):
-    ```sh
-    pod install
-    ```
 
 ## Usage
 
