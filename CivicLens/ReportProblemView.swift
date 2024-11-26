@@ -11,29 +11,32 @@ struct ReportProblemView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("Report a problem")
+                Text("Report an Issue")
                     .font(.largeTitle)
                     .bold()
                     .padding(.bottom, 20)
                 
-                Text("What are you reporting?")
+                Text("What type of issue are you reporting?")
                     .font(.headline)
                     .padding(.bottom, 10)
                 
                 List {
-                    ReportOptionRow(imageName: "car.fill", title: "Illegally parked vehicle", description: "Vehicles on the sidewalk, in a bike lane or bus stop")
+                    ReportOptionRow(imageName: "exclamationmark.triangle.fill",
+                                    title: "Pothole",
+                                    description: "Report road potholes or surface damage")
                     
-                    ReportOptionRow(imageName: "wrench.fill", title: "Public infrastructure damage", description: "Damaged street furniture, potholes, etc.")
+                    ReportOptionRow(imageName: "arrow.down.to.line.alt",
+                                    title: "Crack",
+                                    description: "Report road or sidewalk cracks")
                     
-                    ReportOptionRow(imageName: "lightbulb.fill", title: "Poor lighting", description: "Report areas with insufficient lighting")
-                    
-                    ReportOptionRow(imageName: "drop.fill", title: "Water leaks", description: "Leaks from pipes, hydrants, etc.")
-                    
-                    ReportOptionRow(imageName: "leaf.fill", title: "Urban biodiversity analysis", description: "Report wildlife sightings")
+                    ReportOptionRow(imageName: "questionmark.diamond.fill",
+                                    title: "Other Issues",
+                                    description: "We aren't currently accepting other reports")
                 }
+                
                 Spacer()
                 
-                NavigationLink(destination: ReportIssueView()){
+                NavigationLink(destination: ReportIssueView()) {
                     Text("Next")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -72,7 +75,7 @@ struct ReportOptionRow: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ReportProblemView_Previews: PreviewProvider {
     static var previews: some View {
         ReportProblemView()
     }
